@@ -213,7 +213,7 @@ end
 --Changed Element Go to func
 -----------------------------------
 local changed_elements = {}
-addEventHandler("onClientGUIChanged",resourceRoot,function()
+addEventHandler("onClientGUIChanged",resourceRoot,function(elm)
     if changed_elements[elm] then changed_elements[elm]() end
 end)
 
