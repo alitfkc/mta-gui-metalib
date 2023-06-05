@@ -142,6 +142,21 @@ function guiStopAniming(elm)
         end 
     end
 end
+--Gui sizing animation
+function guiSizeTo(elm,sizew,sizeh,relative,easing,duration,waiting)
+    local w,h = guiGetSize(elm,relative)
+    local tick  = getTickCount()
+    table.insert(animations,{anim_type="sizing",elm=elm,startw=w,starth=h,sizew=sizew,sizeh=sizeh,relative=relative,oldTick=tick,easing=easing,duration=duration})
+    if waiting then
+        table.insert(anim_timers,{
+            elm = elm,
+            timer = setTimer(function(elm,startx,starty,sizex,sizey,relative,easing,duration)
+                table.insert(animations,{anim_type="sizing",elm=elm,startw=w,starth=h,sizew=sizew,sizeh=h,relative=relative,oldTick=tick,easing=easing,duration=duration})
+            end,waiting,1,elm,w,hsizex,sizey,relative,easing,duration)
+        })
+    end
+end
+
 
 function setAnimRender()
     local nowTick = getTickCount()
